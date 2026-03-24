@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     permissions:
-      contents: write
+      contents: read
       id-token: write
 
     steps:
@@ -45,7 +45,7 @@ jobs:
         run: pnpm build-storybook
 
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: npm publish
         env:
           NPM_CONFIG_PROVENANCE: true
 
