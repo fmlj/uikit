@@ -43,9 +43,6 @@ jobs:
       - name: Build Storybook
         run: pnpm build-storybook
 
-      - name: Debug npm version
-        run: npm --version
-
       - name: Publish to npm
         run: npm publish --provenance --access public
         env:
