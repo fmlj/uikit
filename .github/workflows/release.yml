@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   release:
@@ -11,44 +11,46 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
-      
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - name: Run tests
         run: pnpm test:run
-      
+
       - name: Type check
         run: pnpm typecheck
-      
+
       - name: Build
         run: pnpm build
-      
+
       - name: Build Storybook
         run: pnpm build-storybook
-      
+
       - name: Debug npm version
         run: npm --version
-      
+
       - name: Publish to npm
         run: npm publish --provenance --access public
-      
+        env:
+          NPM_CONFIG_PROVENANCE: true
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -57,7 +59,7 @@ jobs:
             dist/**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Deploy Storybook to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
