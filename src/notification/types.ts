@@ -25,6 +25,15 @@ export interface NotificationProps {
   variant?: NotificationVariant
   color?: ComponentColor
   size?: NotificationSize
+  /**
+   * Icon rendered before the content. Pass `null` to explicitly hide.
+   */
+  icon?: React.ReactNode
+  /**
+   * Show left accent border line (visible on outline and soft variants).
+   * @default true
+   */
+  borderLine?: boolean
   closable?: boolean
   onClose?: () => void
   action?: NotificationAction

@@ -12,7 +12,7 @@ import React, {
 
 import { cn } from "../utils";
 import { colorVars } from "../variants";
-import type { TabsColor, TabsProps } from "./types";
+import type { TabsColor, TabsProps, TabsRadius } from "./types";
 
 // Use useLayoutEffect on client, useEffect on server (SSR safe)
 const useIsomorphicLayoutEffect =
@@ -33,14 +33,34 @@ const tabListVariants = cva("flex relative", {
       default: "border-b",
       solid: "border-b",
       soft: "border-b",
-      pill: "bg-surface p-0.5 rounded-lg border border-border gap-0 w-fit",
+      pill: "bg-surface p-0.5 border border-border gap-0 w-fit",
+    },
+    radius: {
+      xs: "",
+      sm: "",
+      md: "",
+      lg: "",
     },
   },
+  compoundVariants: [
+    { variant: "pill", radius: "xs", className: "rounded-sm" },
+    { variant: "pill", radius: "sm", className: "rounded-md" },
+    { variant: "pill", radius: "md", className: "rounded-lg" },
+    { variant: "pill", radius: "lg", className: "rounded-xl" },
+  ],
   defaultVariants: {
     size: "md",
     variant: "default",
+    radius: "md",
   },
 });
+
+const indicatorRadiusMap: Record<TabsRadius, string> = {
+  xs: "rounded-xs",
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+};
 
 const tabItemVariants = cva(
   "relative z-[1] font-medium transition-colors duration-200 ease-out cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-slot/50 focus-visible:rounded-sm",
@@ -56,7 +76,13 @@ const tabItemVariants = cva(
         default: "pb-2 -mb-px",
         solid: "pb-2 -mb-px",
         soft: "pb-2 -mb-px",
-        pill: "rounded-md",
+        pill: "",
+      },
+      radius: {
+        xs: "",
+        sm: "",
+        md: "",
+        lg: "",
       },
       color: {
         default: "",
@@ -116,11 +142,18 @@ const tabItemVariants = cva(
         active: false as const,
         className: "bg-transparent hover:bg-background/50",
       })),
+
+      // Pill radius variants
+      { variant: "pill" as const, radius: "xs" as const, className: "rounded-xs" },
+      { variant: "pill" as const, radius: "sm" as const, className: "rounded-sm" },
+      { variant: "pill" as const, radius: "md" as const, className: "rounded-md" },
+      { variant: "pill" as const, radius: "lg" as const, className: "rounded-lg" },
     ],
     defaultVariants: {
       size: "md",
       variant: "default",
       color: "primary",
+      radius: "md",
       active: false,
     },
   },
@@ -134,6 +167,7 @@ const Tabs = React.memo<TabsProps>(
     color = "primary",
     size = "md",
     variant = "default",
+    radius = "md",
     onChange,
     className,
     classNames,
@@ -333,7 +367,7 @@ const Tabs = React.memo<TabsProps>(
           data-slot="tabs_list"
           className={cn(
             "tabs_list overflow-x-auto",
-            tabListVariants({ size, variant }),
+            tabListVariants({ size, variant, radius }),
             variant !== "pill" && "border-border",
             classNames?.list,
           )}
@@ -344,7 +378,7 @@ const Tabs = React.memo<TabsProps>(
             className={cn(
               "tabs_indicator absolute pointer-events-none",
               isPill
-                ? cn("rounded-md shadow-sm top-0.5", "bg-slot")
+                ? cn(indicatorRadiusMap[radius], "shadow-sm top-0.5", "bg-slot")
                 : cn("bottom-0 h-0.5 rounded-full", "bg-slot"),
               hasInitialized
                 ? "transition-[transform,width] duration-300 ease-out"
@@ -379,6 +413,7 @@ const Tabs = React.memo<TabsProps>(
                   tabItemVariants({
                     size,
                     variant,
+                    radius,
                     color,
                     active: isActive,
                   }),

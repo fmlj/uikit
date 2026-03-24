@@ -40,6 +40,10 @@ const meta: Meta<typeof Notification> = {
       control: 'boolean',
       description: 'Show close button',
     },
+    borderLine: {
+      control: 'boolean',
+      description: 'Show left accent border line (outline/soft variants)',
+    },
   },
 }
 
@@ -450,6 +454,28 @@ export const ToastStyled: Story = {
       </div>
     )
   },
+}
+
+// Border Line comparison
+export const BorderLineComparison: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-3">With border line (default)</h3>
+        <div className="space-y-2">
+          <Notification variant="outline" color="info" title="Outline" description="Left accent border visible." />
+          <Notification variant="soft" color="success" title="Soft" description="Left accent border visible." />
+        </div>
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold mb-3">Without border line</h3>
+        <div className="space-y-2">
+          <Notification variant="outline" color="info" title="Outline" description="No left accent border." borderLine={false} />
+          <Notification variant="soft" color="success" title="Soft" description="No left accent border." borderLine={false} />
+        </div>
+      </div>
+    </div>
+  ),
 }
 
 // Color × Variant Matrix

@@ -63,9 +63,9 @@ export const DocumentationPage: Story = {
 
           <Section id="installation" title="Installation">
             <p>Install the package using your preferred package manager:</p>
-            <pre className="bg-surface rounded-md p-3 font-mono text-xs mt-2">npm install @mdigital_ui/ui</pre>
+            <pre className="bg-surface rounded-md p-3 font-mono text-xs mt-2">npm install @fmlj/uikit</pre>
             <p className="mt-3">Then import the global styles in your entry file:</p>
-            <pre className="bg-surface rounded-md p-3 font-mono text-xs mt-2">{`import '@mdigital_ui/ui/styles.css'`}</pre>
+            <pre className="bg-surface rounded-md p-3 font-mono text-xs mt-2">{`import '@fmlj/uikit/styles.css'`}</pre>
             <Paragraph />
           </Section>
 
@@ -105,7 +105,7 @@ export const DocumentationPage: Story = {
 
           <Section id="api-reference" title="API Reference">
             <p>Every component exports its TypeScript types. Import them alongside the component:</p>
-            <pre className="bg-surface rounded-md p-3 font-mono text-xs mt-2">{`import { Button } from '@mdigital_ui/ui'\nimport type { ButtonProps } from '@mdigital_ui/ui'`}</pre>
+            <pre className="bg-surface rounded-md p-3 font-mono text-xs mt-2">{`import { Button } from '@fmlj/uikit'\nimport type { ButtonProps } from '@fmlj/uikit'`}</pre>
             <Paragraph />
             <Paragraph />
           </Section>

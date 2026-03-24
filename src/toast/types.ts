@@ -16,6 +16,11 @@ export interface ToastOptions {
   color?: ComponentColor
   variant?: 'default' | 'solid' | 'outline' | 'soft'
   size?: ComponentSize
+  /**
+   * Show left accent border line (outline/soft variants).
+   * @default false
+   */
+  borderLine?: boolean
   duration?: number
   closable?: boolean
   action?: {

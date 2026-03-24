@@ -5,7 +5,7 @@ import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperProps } from 'swiper/react'
 import { PaginationOptions, Swiper as SwiperType } from 'swiper/types'
 
-// Swiper styles — also available as separate import: '@mdigital_ui/ui/carousel/styles'
+// Swiper styles — also available as separate import: '@fmlj/uikit/carousel/styles'
 import './styles'
 
 import { cn } from '../utils'

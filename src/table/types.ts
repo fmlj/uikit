@@ -37,7 +37,7 @@ export interface EditableCellProps {
 }
 
 /**
- * Extended column definition with mdigital-specific properties.
+ * Extended column definition with fmlj-specific properties.
  * Adds `pin` (column pinning) and `editable` (inline editing) to TanStack's ColumnDef.
  */
 export type ExtendedColumnDef<TData, TValue = unknown> =

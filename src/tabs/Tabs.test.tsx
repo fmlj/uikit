@@ -245,6 +245,44 @@ describe('Tabs', () => {
     expect(panel).toHaveClass('animate-in', 'fade-in')
   })
 
+  describe('Radius', () => {
+    it('applies radius to pill wrapper', () => {
+      const radiusListMap = { xs: 'rounded-sm', sm: 'rounded-md', md: 'rounded-lg', lg: 'rounded-xl' } as const
+      ;(Object.keys(radiusListMap) as Array<keyof typeof radiusListMap>).forEach((r) => {
+        const { unmount } = render(<Tabs items={mockItems} variant="pill" radius={r} />)
+        const list = screen.getByRole('tablist')
+        expect(list).toHaveClass(radiusListMap[r])
+        unmount()
+      })
+    })
+
+    it('applies radius to pill tabs', () => {
+      const radiusTabMap = { xs: 'rounded-xs', sm: 'rounded-sm', md: 'rounded-md', lg: 'rounded-lg' } as const
+      ;(Object.keys(radiusTabMap) as Array<keyof typeof radiusTabMap>).forEach((r) => {
+        const { unmount } = render(<Tabs items={mockItems} variant="pill" radius={r} />)
+        const tabs = screen.getAllByRole('tab')
+        tabs.forEach((tab) => expect(tab).toHaveClass(radiusTabMap[r]))
+        unmount()
+      })
+    })
+
+    it('defaults to md radius', () => {
+      render(<Tabs items={mockItems} variant="pill" />)
+      const list = screen.getByRole('tablist')
+      expect(list).toHaveClass('rounded-lg')
+      const tabs = screen.getAllByRole('tab')
+      tabs.forEach((tab) => expect(tab).toHaveClass('rounded-md'))
+    })
+
+    it('does not apply radius rounding to non-pill variants', () => {
+      const { container } = render(<Tabs items={mockItems} variant="default" radius="lg" />)
+      const list = screen.getByRole('tablist')
+      expect(list).not.toHaveClass('rounded-xl')
+      const indicator = container.querySelector('[data-slot="tabs_indicator"]')
+      expect(indicator).toHaveClass('rounded-full')
+    })
+  })
+
   describe('Indicator Positioning', () => {
     // Mock offsetLeft and offsetWidth for layout calculations in jsdom
     beforeEach(() => {
@@ -287,6 +325,16 @@ describe('Tabs', () => {
       const { container } = render(<Tabs items={mockItems} variant="pill" />)
       const indicator = container.querySelector('[data-slot="tabs_indicator"]')
       expect(indicator).toHaveClass('rounded-md', 'shadow-sm', 'top-0.5')
+    })
+
+    it('indicator uses radius-matched rounding for pill variant', () => {
+      const radiusIndicatorMap = { xs: 'rounded-xs', sm: 'rounded-sm', md: 'rounded-md', lg: 'rounded-lg' } as const
+      ;(Object.keys(radiusIndicatorMap) as Array<keyof typeof radiusIndicatorMap>).forEach((r) => {
+        const { container, unmount } = render(<Tabs items={mockItems} variant="pill" radius={r} />)
+        const indicator = container.querySelector('[data-slot="tabs_indicator"]')
+        expect(indicator).toHaveClass(radiusIndicatorMap[r])
+        unmount()
+      })
     })
 
     it('indicator has transform style applied', () => {

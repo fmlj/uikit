@@ -1,46 +1,21 @@
 "use client";
 
-import { cva } from "class-variance-authority";
 import {
   AlertCircle,
   AlertTriangle,
   CheckCircle2,
   Info,
   Loader2,
-  X,
 } from "lucide-react";
 import React, { useCallback, useContext, createContext, useMemo } from "react";
 import { Toaster, toast as sonnerToast } from "sonner";
 
-import { cn } from "../utils";
-import { colorVars } from "../variants";
+import Notification from "../notification";
 import type {
   ToastContextValue,
   ToastOptions,
   ToastProviderProps,
 } from "./types";
-
-/**
- * Toast CVA — reuses the shared notification color variant system
- */
-const toastVariants = cva(
-  "relative flex items-start gap-3 rounded-lg p-3 text-sm w-full min-w-[300px]",
-  {
-    variants: {
-      variant: {
-        default: 'bg-slot border border-slot text-slot-fg',
-        solid: 'bg-slot text-slot-fg',
-        outline: 'bg-background border-2 border-slot border-l-4 border-l-slot text-slot',
-        soft: 'bg-background border border-slot-30 text-slot shadow-sm',
-      },
-      color: colorVars,
-    },
-    defaultVariants: {
-      variant: "soft",
-      color: "default",
-    },
-  },
-);
 
 /**
  * Default icons per semantic color
@@ -53,7 +28,7 @@ const defaultIcons: Partial<Record<string, React.ReactElement>> = {
 };
 
 /**
- * Internal toast renderer — styled with our CVA system
+ * Internal toast renderer — uses Notification component directly
  */
 const ToastRenderer = ({
   id,
@@ -64,7 +39,9 @@ const ToastRenderer = ({
 }) => {
   const variant = options.variant ?? "default";
   const color = options.color ?? "default";
+  const size = options.size ?? "sm";
   const closable = options.closable ?? !options.loading;
+  const borderLine = options.borderLine ?? false;
   const icon = options.loading ? (
     <Loader2 className="w-5 h-5 animate-spin" />
   ) : options.icon !== undefined ? (
@@ -74,36 +51,19 @@ const ToastRenderer = ({
   );
 
   return (
-    <div data-slot="toast" className={cn(toastVariants({ variant, color }))}>
-      {icon && <div data-slot="toast-icon" className="shrink-0 mt-0.5">{icon}</div>}
-      <div data-slot="toast-content" className="flex-1 min-w-0">
-        {options.title && <div data-slot="toast-title" className="font-semibold">{options.title}</div>}
-        {options.description && (
-          <div data-slot="toast-description" className="opacity-90 mt-0.5">{options.description}</div>
-        )}
-        {options.action && (
-          <button
-            type="button"
-            data-slot="toast-action"
-            onClick={options.action.onClick}
-            className="mt-2 text-sm font-medium underline hover:no-underline"
-          >
-            {options.action.label}
-          </button>
-        )}
-      </div>
-      {closable && (
-        <button
-          type="button"
-          data-slot="toast-close"
-          onClick={() => sonnerToast.dismiss(id)}
-          className="shrink-0 rounded-sm opacity-70 hover:opacity-100 transition-opacity"
-          aria-label="Close"
-        >
-          <X className="w-4 h-4" aria-hidden="true" />
-        </button>
-      )}
-    </div>
+    <Notification
+      title={options.title}
+      description={options.description}
+      variant={variant}
+      color={color}
+      size={size}
+      icon={icon}
+      borderLine={borderLine}
+      closable={closable}
+      onClose={() => sonnerToast.dismiss(id)}
+      action={options.action}
+      className="min-w-[300px] rounded-lg shadow-lg"
+    />
   );
 };
 

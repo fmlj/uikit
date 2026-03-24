@@ -16,13 +16,13 @@ A Material Design style input component with a floating label that animates when
 ## Installation
 
 ```bash
-npm install @mdigital_ui/ui
+npm install @fmlj/uikit
 ```
 
 ## Basic Usage
 
 ```tsx
-import { FloatInput } from '@mdigital_ui/ui'
+import { FloatInput } from '@fmlj/uikit'
 
 function MyForm() {
   return <FloatInput label="Email" />

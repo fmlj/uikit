@@ -16,8 +16,8 @@ const notificationVariants = cva(
       variant: {
         default: 'bg-slot border border-slot text-slot-fg',
         solid: 'bg-slot text-slot-fg',
-        outline: 'bg-background border border-slot border-l-4 border-l-slot text-slot',
-        soft: 'bg-slot-10 border-l-4 border-l-slot text-slot',
+        outline: 'bg-background border border-slot text-slot',
+        soft: 'bg-slot-10 text-slot',
       },
       color: colorVars,
       size: {
@@ -34,6 +34,9 @@ const notificationVariants = cva(
     },
   },
 )
+
+/** Variants that support the left accent border line */
+const borderLineVariants = new Set<string>(['outline', 'soft'])
 
 const titleSizeClasses = {
   xs: 'text-xs',
@@ -56,6 +59,8 @@ const Notification = React.memo<NotificationProps>(
     variant = 'default',
     color = 'default',
     size = 'md',
+    icon,
+    borderLine = true,
     closable,
     onClose,
     action,
@@ -64,6 +69,7 @@ const Notification = React.memo<NotificationProps>(
     children,
   }) => {
     const isClosable = closable ?? (onClose !== undefined)
+    const showBorderLine = borderLine && borderLineVariants.has(variant)
 
     return (
       <div
@@ -74,10 +80,14 @@ const Notification = React.memo<NotificationProps>(
         className={cn(
           'notification_root',
           notificationVariants({ variant, color, size }),
+          showBorderLine && 'border-l-4 border-l-slot',
           className,
           classNames?.root,
         )}
       >
+        {icon !== undefined && icon !== null && (
+          <div data-slot="notification_icon" className={cn('shrink-0 mt-0.5', classNames?.icon)}>{icon}</div>
+        )}
         <div className={cn('flex-1 min-w-0', 'notification_content', classNames?.content)}>
           {title && <div className={cn('font-semibold mb-1', titleSizeClasses[size], 'notification_title', classNames?.title)}>{title}</div>}
           {description && (

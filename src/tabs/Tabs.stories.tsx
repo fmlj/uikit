@@ -23,6 +23,11 @@ const meta: Meta<typeof Tabs> = {
       options: ['default', 'solid', 'soft', 'pill'],
       description: 'Visual style variant',
     },
+    radius: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg'],
+      description: 'Border radius (visible on pill variant)',
+    },
   },
 }
 
@@ -439,6 +444,29 @@ export const UserSettings: Story = {
       />
     </div>
   ),
+}
+
+// Radius Comparison (pill variant)
+export const RadiusComparison: Story = {
+  render: () => {
+    const radii = ['xs', 'sm', 'md', 'lg'] as const
+    const pillTabs = [
+      { key: 'overview', label: 'Overview', content: <div className="p-4">Overview content</div> },
+      { key: 'analytics', label: 'Analytics', content: <div className="p-4">Analytics content</div> },
+      { key: 'reports', label: 'Reports', content: <div className="p-4">Reports content</div> },
+    ]
+
+    return (
+      <div className="space-y-6">
+        {radii.map((r) => (
+          <div key={r}>
+            <div className="text-sm font-medium mb-2 text-text-secondary">radius=&quot;{r}&quot;</div>
+            <Tabs items={pillTabs} variant="pill" radius={r} color="primary" />
+          </div>
+        ))}
+      </div>
+    )
+  },
 }
 
 // Color × Variant Matrix

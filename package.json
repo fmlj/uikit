@@ -1,5 +1,5 @@
 {
-  "name": "@mdigital_ui/ui",
+  "name": "@fmlj/uikit",
   "version": "0.5.2",
   "description": "Modern React component library built with Tailwind CSS v4",
   "type": "module",
@@ -450,7 +450,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mstrluke/mdigital_uikit.git"
+    "url": "git+https://github.com/fmlj/uikit.git"
   },
   "license": "MIT",
   "publishConfig": {

@@ -188,6 +188,71 @@ describe('Notification', () => {
     expect(root).toBeInTheDocument()
   })
 
+  describe('borderLine', () => {
+    it('shows left border line on outline variant by default', () => {
+      const { container } = render(<Notification title="Test" variant="outline" />)
+      const root = container.querySelector('.notification_root')
+      expect(root).toHaveClass('border-l-4', 'border-l-slot')
+    })
+
+    it('shows left border line on soft variant by default', () => {
+      const { container } = render(<Notification title="Test" variant="soft" />)
+      const root = container.querySelector('.notification_root')
+      expect(root).toHaveClass('border-l-4', 'border-l-slot')
+    })
+
+    it('hides left border line when borderLine is false on outline', () => {
+      const { container } = render(<Notification title="Test" variant="outline" borderLine={false} />)
+      const root = container.querySelector('.notification_root')
+      expect(root).not.toHaveClass('border-l-4')
+      expect(root).not.toHaveClass('border-l-slot')
+    })
+
+    it('hides left border line when borderLine is false on soft', () => {
+      const { container } = render(<Notification title="Test" variant="soft" borderLine={false} />)
+      const root = container.querySelector('.notification_root')
+      expect(root).not.toHaveClass('border-l-4')
+      expect(root).not.toHaveClass('border-l-slot')
+    })
+
+    it('does not apply border line on default variant regardless of prop', () => {
+      const { container } = render(<Notification title="Test" variant="default" borderLine={true} />)
+      const root = container.querySelector('.notification_root')
+      expect(root).not.toHaveClass('border-l-4')
+    })
+
+    it('does not apply border line on solid variant regardless of prop', () => {
+      const { container } = render(<Notification title="Test" variant="solid" borderLine={true} />)
+      const root = container.querySelector('.notification_root')
+      expect(root).not.toHaveClass('border-l-4')
+    })
+  })
+
+  describe('icon', () => {
+    it('renders icon when provided', () => {
+      render(<Notification title="Test" icon={<span data-testid="notif-icon">🔔</span>} />)
+      expect(screen.getByTestId('notif-icon')).toBeInTheDocument()
+    })
+
+    it('does not render icon slot when icon is undefined', () => {
+      const { container } = render(<Notification title="Test" />)
+      expect(container.querySelector('[data-slot="notification_icon"]')).not.toBeInTheDocument()
+    })
+
+    it('does not render icon slot when icon is null', () => {
+      const { container } = render(<Notification title="Test" icon={null} />)
+      expect(container.querySelector('[data-slot="notification_icon"]')).not.toBeInTheDocument()
+    })
+
+    it('applies classNames.icon to icon wrapper', () => {
+      const { container } = render(
+        <Notification title="Test" icon={<span>🔔</span>} classNames={{ icon: 'custom-icon-class' }} />
+      )
+      const iconSlot = container.querySelector('[data-slot="notification_icon"]')
+      expect(iconSlot).toHaveClass('custom-icon-class')
+    })
+  })
+
   it('renders action button as underlined link', () => {
     const action = {
       label: 'Learn More',

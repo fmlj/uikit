@@ -6,6 +6,8 @@ export type TabsVariant = 'default' | 'solid' | 'soft' | 'pill'
 
 export type TabsSize = ComponentSize
 
+export type TabsRadius = 'xs' | 'sm' | 'md' | 'lg'
+
 export interface TabItem {
   key: string
   label: string
@@ -39,6 +41,10 @@ export interface TabsProps {
   color?: TabsColor
   size?: TabsSize
   variant?: TabsVariant
+  /**
+   * Border radius for wrapper and tabs (visible on pill variant)
+   */
+  radius?: TabsRadius
   onChange?: (key: string) => void
   className?: string
   classNames?: TabsClassNames

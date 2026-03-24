@@ -258,7 +258,7 @@ describe('Toast', () => {
     await user.click(screen.getByRole('button', { name: 'Show' }))
     expect(await screen.findByText('Dismiss me')).toBeInTheDocument()
 
-    const closeButton = screen.getByLabelText('Close')
+    const closeButton = screen.getByLabelText('Close notification')
     await user.click(closeButton)
 
     await waitFor(() => {
@@ -287,7 +287,7 @@ describe('Toast', () => {
 
     await user.click(screen.getByRole('button', { name: 'Show' }))
     expect(await screen.findByText('No close')).toBeInTheDocument()
-    expect(screen.queryByLabelText('Close')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Close notification')).not.toBeInTheDocument()
   })
 
   it('supports custom action', async () => {
