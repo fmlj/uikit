@@ -40,6 +40,7 @@ const tabListVariants = cva("flex relative", {
       sm: "",
       md: "",
       lg: "",
+      full: "",
     },
   },
   compoundVariants: [
@@ -47,6 +48,7 @@ const tabListVariants = cva("flex relative", {
     { variant: "pill", radius: "sm", className: "rounded-md" },
     { variant: "pill", radius: "md", className: "rounded-lg" },
     { variant: "pill", radius: "lg", className: "rounded-xl" },
+    { variant: "pill", radius: "full", className: "rounded-full" },
   ],
   defaultVariants: {
     size: "md",
@@ -60,6 +62,7 @@ const indicatorRadiusMap: Record<TabsRadius, string> = {
   sm: "rounded-sm",
   md: "rounded-md",
   lg: "rounded-lg",
+  full: "rounded-full",
 };
 
 const tabItemVariants = cva(
@@ -83,6 +86,7 @@ const tabItemVariants = cva(
         sm: "",
         md: "",
         lg: "",
+        full: "",
       },
       color: {
         default: "",
@@ -148,6 +152,7 @@ const tabItemVariants = cva(
       { variant: "pill" as const, radius: "sm" as const, className: "rounded-sm" },
       { variant: "pill" as const, radius: "md" as const, className: "rounded-md" },
       { variant: "pill" as const, radius: "lg" as const, className: "rounded-lg" },
+      { variant: "pill" as const, radius: "full" as const, className: "rounded-full" },
     ],
     defaultVariants: {
       size: "md",

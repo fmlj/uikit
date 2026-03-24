@@ -25,7 +25,7 @@ const meta: Meta<typeof Tabs> = {
     },
     radius: {
       control: 'select',
-      options: ['xs', 'sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg', 'full'],
       description: 'Border radius (visible on pill variant)',
     },
   },
@@ -449,7 +449,7 @@ export const UserSettings: Story = {
 // Radius Comparison (pill variant)
 export const RadiusComparison: Story = {
   render: () => {
-    const radii = ['xs', 'sm', 'md', 'lg'] as const
+    const radii = ['xs', 'sm', 'md', 'lg', 'full'] as const
     const pillTabs = [
       { key: 'overview', label: 'Overview', content: <div className="p-4">Overview content</div> },
       { key: 'analytics', label: 'Analytics', content: <div className="p-4">Analytics content</div> },

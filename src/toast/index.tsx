@@ -51,19 +51,21 @@ const ToastRenderer = ({
   );
 
   return (
-    <Notification
-      title={options.title}
-      description={options.description}
-      variant={variant}
-      color={color}
-      size={size}
-      icon={icon}
-      borderLine={borderLine}
-      closable={closable}
-      onClose={() => sonnerToast.dismiss(id)}
-      action={options.action}
-      className="min-w-[300px] rounded-lg shadow-lg"
-    />
+    <div data-slot="toast">
+      <Notification
+        title={options.title}
+        description={options.description}
+        variant={variant}
+        color={color}
+        size={size}
+        icon={icon}
+        borderLine={borderLine}
+        closable={closable}
+        onClose={() => sonnerToast.dismiss(id)}
+        action={options.action}
+        className="min-w-[300px] rounded-lg shadow-lg"
+      />
+    </div>
   );
 };
 

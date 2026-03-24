@@ -130,6 +130,7 @@ describe('Notification', () => {
       <Notification
         title="Title"
         description="Description"
+        icon={<span>🔔</span>}
         classNames={{
           root: 'root-class',
           content: 'content-class',
@@ -144,6 +145,16 @@ describe('Notification', () => {
     expect(container.querySelector('.content-class')).toBeInTheDocument()
     expect(container.querySelector('.title-class')).toBeInTheDocument()
     expect(container.querySelector('.description-class')).toBeInTheDocument()
+    expect(container.querySelector('.icon-class')).toBeInTheDocument()
+  })
+
+  it('does not apply classNames.icon to close button', () => {
+    const { container } = render(
+      <Notification title="Test" onClose={vi.fn()} classNames={{ icon: 'icon-class' }} />
+    )
+    const closeButton = container.querySelector('.notification_closeButton')
+    const closeIcon = closeButton?.querySelector('svg')
+    expect(closeIcon).not.toHaveClass('icon-class')
   })
 
   it('renders with success color for success notifications', () => {

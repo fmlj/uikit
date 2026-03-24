@@ -165,7 +165,7 @@ Override after our import — no `!important` needed:
 }
 ```
 
-Every token is a CSS variable. Change one, it propagates everywhere. Dark mode selectors use `:where()` to keep specificity flat — your overrides always win by source order.
+Every token is a CSS variable. Change one, it propagates everywhere. Your `:root` overrides win by source order — just import after `global.css`.
 
 ---
 

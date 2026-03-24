@@ -112,7 +112,7 @@ const Notification = React.memo<NotificationProps>(
             className={cn('shrink-0 rounded-sm opacity-70 hover:opacity-100 transition-opacity', 'notification_closeButton', classNames?.closeButton)}
             aria-label="Close notification"
           >
-            <X className={cn(iconSizes[size], 'notification_icon', classNames?.icon)} aria-hidden="true" />
+            <X className={cn(iconSizes[size], 'notification_closeIcon')} aria-hidden="true" />
           </button>
         )}
       </div>

@@ -10,16 +10,77 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Custom design tokens — only what Tailwind v4 doesn't ship.
- * Spacing, radius, typography, shadows, grays — all come from @import "tailwindcss".
+ * Color token registration — @theme reference registers utilities
+ * (bg-primary, text-error, etc.) without setting values on :root.
+ * Actual default values are in the :root block below.
+ * Consumers can override colors with plain :root or theme preset CSS.
  */
-@theme {
+@theme reference {
+  /* Brand */
+  --color-primary: ;
+  --color-primary-hover: ;
+  --color-primary-active: ;
+  --color-primary-foreground: ;
+  --color-secondary: ;
+  --color-secondary-hover: ;
+  --color-secondary-active: ;
+  --color-secondary-foreground: ;
+  --color-accent: ;
+  --color-accent-hover: ;
+  --color-accent-active: ;
+  --color-accent-foreground: ;
+  /* Semantic */
+  --color-success: ;
+  --color-success-hover: ;
+  --color-success-active: ;
+  --color-success-foreground: ;
+  --color-error: ;
+  --color-error-hover: ;
+  --color-error-active: ;
+  --color-error-foreground: ;
+  --color-warning: ;
+  --color-warning-hover: ;
+  --color-warning-active: ;
+  --color-warning-foreground: ;
+  --color-info: ;
+  --color-info-hover: ;
+  --color-info-active: ;
+  --color-info-foreground: ;
+  /* Surfaces */
+  --color-background: ;
+  --color-background-secondary: ;
+  --color-surface: ;
+  --color-card: ;
+  --color-card-foreground: ;
+  /* Borders */
+  --color-border: ;
+  --color-border-primary: ;
+  --color-border-hover: ;
+  --color-border-focus: ;
+  /* Text */
+  --color-text-primary: ;
+  --color-text-secondary: ;
+  --color-text-muted: ;
+  --color-text-disabled: ;
+  /* Focus & Disabled */
+  --color-focus: ;
+  --color-focus-ring: ;
+  --color-disabled: ;
+  --color-disabled-text: ;
+  --color-overlay: ;
+  /* Input */
+  --color-input-border: ;
+  --color-input-border-focus: ;
+  --color-input-border-error: ;
+  --color-input-bg: ;
+  --color-input-text: ;
+  --color-input-placeholder: ;
+}
 
-  /* === RADIUS (extend Tailwind defaults) === */
-  --radius-xs: 0.125rem;
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
-
+/*
+ * Default color values (light mode) — plain :root, easily overridable.
+ */
+:root {
   /* === BRAND COLORS === */
   --color-primary: oklch(60.29% 0.15 239.2065);
   --color-primary-hover: oklch(50.29% 0.2 239.2065);
@@ -90,6 +151,18 @@
   --color-input-bg: oklch(100% 0 0);
   --color-input-text: oklch(15% 0 0);
   --color-input-placeholder: oklch(60% 0 0);
+}
+
+/*
+ * Non-color design tokens — kept in @theme for Tailwind utility generation.
+ * Spacing, radius, component sizes, z-index, etc.
+ */
+@theme {
+
+  /* === RADIUS (extend Tailwind defaults) === */
+  --radius-xs: 0.125rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
 
   /* === COMPONENT SIZES === */
   --size-xs: 1.75rem;
@@ -331,9 +404,9 @@
 /* ============================================
    DARK MODE
    ============================================ */
-:root:where(.dark),
+:root.dark,
 .dark,
-:root:where([data-mode='dark']),
+:root[data-mode='dark'],
 [data-mode='dark'] {
   --color-primary: oklch(62% 0.17 239);
   --color-primary-hover: oklch(67% 0.19 239);

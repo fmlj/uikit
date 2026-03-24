@@ -6,7 +6,7 @@ export type TabsVariant = 'default' | 'solid' | 'soft' | 'pill'
 
 export type TabsSize = ComponentSize
 
-export type TabsRadius = 'xs' | 'sm' | 'md' | 'lg'
+export type TabsRadius = 'xs' | 'sm' | 'md' | 'lg' | 'full'
 
 export interface TabItem {
   key: string
