@@ -1,6 +1,6 @@
 {
   "name": "@fmlj/uikit",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "Modern React component library built with Tailwind CSS v4",
   "type": "module",
   "main": "./dist/index.js",
